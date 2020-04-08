@@ -1,3 +1,4 @@
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +10,10 @@ import java.io.PrintWriter;
 @WebServlet("/FirstServlet")
 public class FirstServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter out =resp.getWriter();
-        out.println("<h1>This is my first servlet</h1>");
-        out.close();
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        PrintWriter printWriter=resp.getWriter();
+        printWriter.println("<h1>Hello</h1>");
     }
+
 }
