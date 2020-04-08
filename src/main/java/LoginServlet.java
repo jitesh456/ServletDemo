@@ -16,19 +16,26 @@ import java.io.PrintWriter;
         urlPatterns = {"/LoginServlet"},
         initParams = {
                 @WebInitParam(name ="name",value = "Jitesh"),
-                @WebInitParam(name="password",value = "jitesh123")
+                @WebInitParam(name="password",value = "Jites#12")
         }
 )
 public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String VALIDATE_USER_NAME="^[A-Z]{1}[a-z]{2,}$";
+        String VALIDATE_PASSWORD= "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^$@!#%*?&]*[$#@!%*?&][^$@!#%*?&]*$).{8,}$";
         String actualName = req.getParameter("username");
         String actualPassword = req.getParameter("password");
         PrintWriter out=resp.getWriter();
-        if(actualName.matches("^[A-Z]{1}[a-z]{2,}$")==false) {
-            out.println("<font color=red>username must start with caps and contain 3 character</font><br>");
+        if(actualName.matches(VALIDATE_USER_NAME)==false) {
+            out.println("<font color=red>Username must start with caps and contain 3 character</font><br>");
+        }
+        if(actualPassword.matches(VALIDATE_PASSWORD)==false) {
+            out.println("<font color=red>Password must Have at least 1 UpperCase </font><br>");
+            out.println("<font color=red>At least 1 Lower Case,</font><br>");
+            out.println("<font color=red>At least 1 numeric and exactly 1 special character,</font><br>");
+            out.println("<font color=red>Password must have minimum 8 character</font><br>");
         }
 
         String expectedName=getServletConfig().getInitParameter("name");
